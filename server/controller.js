@@ -16,14 +16,14 @@ module.exports = controller = {
   },
 
   put: (req, res) => {
-    model.post((err, data) => {
+    model.put(req.params.id, req.body, (err, data) => {
       if (err) { res.status(400).send('Some error in the put controller');
       } else { res.status(201).send(data); }
     })
   },
 
   delete: (req, res) => {
-    model.post((err, data) => {
+    model.delete((err, data) => {
       if (err) { res.status(400).send('Some error in the delete controller');
       } else { res.status(202).send(data); }
     })

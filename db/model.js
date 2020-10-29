@@ -27,6 +27,16 @@ module.exports = model = {
       }
     })
   },
-  put: () => console.log('in the model put'),
+  put: (id, body, cb) => {
+    db.connection.query('UPDATE users SET quantity = ? where id = ?', [body.quantity, id], (err, data) => {
+      if(err) {
+        console.log('There was an error performing the update query');
+        cb(err);
+      } else {
+        console.log('The update query was completed successfully');
+        cb(null, data);
+      }
+    })
+  },
   delete: () => console.log('in the model delete')
 }
