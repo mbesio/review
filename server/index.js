@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use(express.static('client/dist'));
 
 // whatever hits the groceries endpoint is managed through the router
 app.use('/groceries', router);
