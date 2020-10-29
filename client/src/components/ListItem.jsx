@@ -1,7 +1,9 @@
 import React from 'react';
 
 var ListItem = (props) => (
-  <div>This is a list Item component</div>
+  <div>
+    {props.item.name} : {props.item.quantity}
+  </div>
 
 );
 
