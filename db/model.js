@@ -4,22 +4,29 @@ module.exports = model = {
   get: (cb) => {
     db.connection.query('SELECT * FROM `users`', (err, data) => {
       if(err) {
-        console.log('There was an error performing the query');
+        console.log('There was an error performing the select query');
         cb (err);
       } else {
-        console.log('The query was completed succesfully');
+        console.log('The select query was completed succesfully');
         cb(null, data);
       }
-
     })
-    // will add some database function here
-
-
-    var err = null;
-    var results = 'success';
-    console.log('in the model get');
   },
-  post: () => console.log('in the model post'),
+  post: (body, cb) => {
+    var insert = {
+      name: body.name,
+      quantity: body.quantity
+    };
+    db.connection.query('INSERT INTO users SET ?', insert, (err, data) => {
+      if(err) {
+        console.log('There was an error performing the insert query');
+        cb (err);
+      } else {
+        console.log('The insert query was completed succesfully');
+        cb(null, data);
+      }
+    })
+  },
   put: () => console.log('in the model put'),
   delete: () => console.log('in the model delete')
 }
