@@ -23,7 +23,7 @@ module.exports = controller = {
   },
 
   delete: (req, res) => {
-    model.delete((err, data) => {
+    model.delete(req.params.id, (err, data) => {
       if (err) { res.status(400).send('Some error in the delete controller');
       } else { res.status(202).send(data); }
     })

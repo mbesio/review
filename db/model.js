@@ -38,5 +38,15 @@ module.exports = model = {
       }
     })
   },
-  delete: () => console.log('in the model delete')
+  delete: (id, cb) => {
+    db.connection.query('DELETE FROM users where id = ?', [id], (err, data) => {
+      if(err) {
+        console.log('There was an error performing the delete query');
+        cb(err);
+      } else {
+        console.log('The delete query was completed successfully');
+        cb(null, data);
+      }
+    })
+  }
 }
