@@ -1,3 +1,5 @@
+// this file is not used anymore with the refactor to sequelize
+
 var db = require('./index.js');
 
 module.exports = model = {

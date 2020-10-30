@@ -1,18 +1,25 @@
-var mysql = require('mysql');
+// refactor using sequelize
+const { Sequelize } = require('sequelize');
 
-var connection = mysql.createConnection({
+const sequelize = new Sequelize('Groceries', 'root', '', {
   host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'Groceries'
-});
-
-connection.connect((err) => {
-  if(err) {
-    console.log('There was an error hooking up the db');
-  } else {
-    console.log('Groceries database connected');
+  dialect: 'mysql',
+  define: {
+    timestamps: false
   }
 });
 
-module.exports.connection = connection;
+const User = sequelize.define('User', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  }
+});
+
+User.sync();
+
+module.exports.User = User;
