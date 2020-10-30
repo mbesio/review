@@ -1,7 +1,8 @@
 import React from 'react';
 
 var ListItem = (props) => (
-  <div>
+
+  <div onClick={()=> props.handleClick(props.item.id)}>
     {props.item.name} : {props.item.quantity}
   </div>
 

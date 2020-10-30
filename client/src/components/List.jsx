@@ -16,7 +16,7 @@ class List extends React.Component {
     <div>
       <h3>Grocery List</h3>
       {this.props.list.map( (item) => {
-        return <ListItem item={item}/>
+        return <ListItem item={item} handleClick={this.props.handleClick}/>
         })
       }
     </div>
