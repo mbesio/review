@@ -1,9 +1,20 @@
 import React from 'react';
 
 var ListItem = (props) => (
-
-  <div onClick={()=> props.handleClick(props.item.id)}>
-    {props.item.name} : {props.item.quantity}
+  <div>
+    <div onClick={()=> props.handleClick(props.item.id)}>
+      {props.item.name} : {props.item.quantity}
+    </div>
+    <form onSubmit={(e) => {props.handleUpdate(e, props.item.id )}}>
+      <label>
+        ^ update quantity:
+        <input
+        type="number"
+        name="updateQuantity"
+        onChange={(e) => {props.handleInputChange(e)}} />
+      </label>
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 
 );

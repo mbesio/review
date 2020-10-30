@@ -9,12 +9,14 @@ class App extends React.Component {
     this.state = {
       list: [],
       newItem: '',
-      newQuantity: 0
+      newQuantity: 0,
+      updateQuantity: 0
     }
     this.getGroceryList = this.getGroceryList.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   // axios request to go and fetch all of what is in the database currently
@@ -34,8 +36,6 @@ class App extends React.Component {
   }
 
   handleInputChange(e){
-    console.log(e.target.name);
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -62,20 +62,29 @@ class App extends React.Component {
       method: 'delete',
       url: `/groceries/${id}`
     })
-      .then( (data) => {
-        console.log('Succesfully deleted from the database: ', data);
-        this.getGroceryList();
-      } )
+      .then( (data) => { this.getGroceryList(); })
       .catch( (err) => console.log('Something went wrong: ', err) )
+  }
 
-    console.log(id);
+  handleUpdate(e, id) {
+    e.preventDefault();
+    // send an update request to the server
+    axios({
+      method: 'put',
+      url: `/groceries/${id}`,
+      data: {
+        quantity: this.state.updateQuantity
+      }
+    })
+      .then( (data) => { this.getGroceryList(); })
+      .catch( (err) => console.log('Something went wrong: ', err) );
   }
 
   render() {
     return (
       <div>
         <Form handleSubmit={this.handleSubmit} handleInputChange ={this.handleInputChange} />
-        <List list={this.state.list} getGroceryList={this.getGroceryList} handleClick={this.handleClick}/>
+        <List list={this.state.list} getGroceryList={this.getGroceryList} handleInputChange ={this.handleInputChange} handleClick={this.handleClick} handleUpdate={this.handleUpdate}/>
       </div>
     );
   }
