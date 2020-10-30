@@ -2,7 +2,7 @@ var db = require('./index.js');
 
 module.exports = model = {
   get: (cb) => {
-    db.connection.query('SELECT * FROM `users`', (err, data) => {
+    db.Groceries.find( (err, data) => {
       if(err) {
         console.log('There was an error performing the select query');
         cb (err);
@@ -17,7 +17,7 @@ module.exports = model = {
       name: body.name,
       quantity: body.quantity
     };
-    db.connection.query('INSERT INTO users SET ?', insert, (err, data) => {
+    db.Groceries.create(insert, (err, data) => {
       if(err) {
         console.log('There was an error performing the insert query');
         cb (err);
@@ -28,7 +28,7 @@ module.exports = model = {
     })
   },
   put: (id, body, cb) => {
-    db.connection.query('UPDATE users SET quantity = ? where id = ?', [body.quantity, id], (err, data) => {
+    db.Groceries.update({_id: id}, {quantity: body.quantity}, (err, data) => {
       if(err) {
         console.log('There was an error performing the update query');
         cb(err);
@@ -39,7 +39,7 @@ module.exports = model = {
     })
   },
   delete: (id, cb) => {
-    db.connection.query('DELETE FROM users where id = ?', [id], (err, data) => {
+    db.Groceries.deleteOne({_id: id}, (err, data) => {
       if(err) {
         console.log('There was an error performing the delete query');
         cb(err);
